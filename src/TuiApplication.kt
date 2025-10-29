@@ -1,7 +1,7 @@
 // TuiApplication
 // An application class, to handle console input/output.
 // A TuiApplication object is created in main(), and its run() method called to enter the main loop of the application.
-class TuiApplication : MenuItemHandler {
+class TuiApplication{
     val university = University()
 
     fun addStudent() {
@@ -39,11 +39,10 @@ class TuiApplication : MenuItemHandler {
     }
 
     fun run() {
-
-
-
         // Array of handlers for each menu item.
-        val menuHandlers = arrayOf (this, this, this)
+        val menuHandlers = arrayOf (MenuItemHandler{addStudent()},
+            MenuItemHandler{searchForStudentById()},
+            MenuItemHandler{searchForStudentsByCourse()})
 
         var running = true
         while (running) {
@@ -59,16 +58,10 @@ class TuiApplication : MenuItemHandler {
 
             // If the input is 0-2, call the onMenuItemSelected() of the appropriate handler.
             when (input) {
-                in 0..2 -> menuHandlers[input].onMenuItemSelected(input)
+                in 0..2 -> menuHandlers[input].onMenuItemSelected()
                 3 -> running = false
                 else -> println("Error: invalid option")
             }
         }
-    }
-
-    // TODO complete.
-    override fun onMenuItemSelected(choice: Int) {
-        println("Choice $choice selected.")
-
     }
 }
